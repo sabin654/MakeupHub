@@ -25,7 +25,11 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse text-danger" id="collapsibleNavbar">
-
+  <ul class="navbar-nav pr-2 list">
+      <li class="nav-item">
+        <a class="nav-link @yield('menuactive')" href="{{ route('cosmetic_menu')}}">Cosmetic List</a>
+      </li>
+      </ul>
 
 @if(Auth::user())
 
