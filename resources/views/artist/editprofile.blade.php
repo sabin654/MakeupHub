@@ -68,6 +68,17 @@
                                     <img src="{{ asset('artistimages/'.$artist->image) }}" alt="Profile Image" style="max-width: 150px;">
                                 @endif
                             </div>
+                            <div class="form-group">
+                                <label for="work_samples">Work Samples</label>
+                                <input type="file" name="work_samples[]" class="form-control" multiple>
+                                @if($artist->work_samples)
+                                    <div>
+                                        @foreach(json_decode($artist->work_samples) as $sample)
+                                            <img src="{{ asset('work_samples/'.$sample) }}" alt="Work Sample" style="max-width: 150px;">
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
 
                             <button type="submit" class="btn btn-success">Save Changes</button>
                         </form>

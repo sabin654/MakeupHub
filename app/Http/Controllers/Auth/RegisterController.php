@@ -73,9 +73,9 @@ class RegisterController extends Controller
             $rules['description'] = ['required', 'string', 'max:1000'];
             $rules['speciality'] = ['required', 'string', 'max:255'];
             $rules['image'] = ['required', 'image', 'mimes:jpeg,png,jpg,avif'];
+            $rules['work_samples.*'] = ['required', 'image', 'mimes:jpeg,png,jpg,avif'];
             $rules['price'] = ['required', 'numeric'];
         }
-
         return Validator::make($data, $rules);
     }
 
@@ -104,13 +104,23 @@ class RegisterController extends Controller
                 $file->move(public_path('artistimages/'), $filename);
             }
 
+            $workSampleFilenames = [];
+            if (isset($data['work_samples'])) {
+                foreach ($data['work_samples'] as $workSample) {
+                    $img = time() . '.' . $workSample->getClientOriginalName();
+                    $workSample->move(public_path('work_samples/'), $img);
+                    $workSampleFilenames[] = $img;
+                }
+            }
+
             Artist::create([
                 'u_id' => $user->id,
-                'image' => $filename,
                 'description' => $data['description'],
-                'location' => $data['location'],
                 'speciality' => $data['speciality'],
+                'location' => $data['location'],
                 'price' => $data['price'],
+                'image' => $filename,
+                'work_samples' => json_encode($workSampleFilenames),
             ]);
         }
         return $user;
