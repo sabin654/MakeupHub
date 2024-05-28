@@ -6,7 +6,7 @@ Register
 
 @section('content')
 <style>
-   body {
+    body {
         background-image: url("https://images.unsplash.com/photo-1669811247691-f59af80a9974?q=80&w=2625&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
         background-size: cover;
         background-position: center;
@@ -14,21 +14,23 @@ Register
         padding: 0;
         font-family: Arial, sans-serif;
     }
+
     .login-container {
         background-color: rgba(1, 1, 1, 0.2);
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(244, 1, 23, 0.5);
         max-width: 550px;
-        margin-left: 13%; /* Centering the container */
+        margin-left: 13%;
+        /* Centering the container */
         margin-top: 0px;
-        height:750px;
+        height: 750px;
 
-       /* Adjust top margin as needed */
+        /* Adjust top margin as needed */
 
     }
 
-     .card-header {
+    .card-header {
         background-color: transparent;
         border-bottom: none;
     }
@@ -41,7 +43,8 @@ Register
     .form-control {
         border-radius: 5px;
 
-        color: white; /* Ensuring the text color remains black */
+        color: white;
+        /* Ensuring the text color remains black */
     }
 
 
@@ -49,8 +52,8 @@ Register
         background-color: #dc3545;
         border: none;
         border-radius: 5px;
-        margin-top:-3px;
-        margin-left:30px;
+        margin-top: -3px;
+        margin-left: 30px;
 
 
 
@@ -61,19 +64,21 @@ Register
     }
 
     .btn-link {
-        color: #000; /* Changed link color to black */
+        color: #000;
+        /* Changed link color to black */
     }
 
     hr {
         border-top: 2px solid #dc3545;
         margin-top: 20px;
     }
-    .dam{
-    color: #dc3545;
+
+    .dam {
+        color: #dc3545;
 
     }
 
-    textarea{
+    textarea {
         border: 1px solid #ced4da !important;
         border-radius: 5px;
         padding: 8px;
@@ -84,12 +89,13 @@ Register
         outline: none;
         box-sizing: border-box;
     }
-    </style>
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card login-container">
-                <div class="card-header h3 text-center dam "> <i class="fas fa-sign-up" aria-hidden="true"></i>Register</div><hr>
+                <div class="card-header h3 text-center dam "> <i class="fas fa-sign-up" aria-hidden="true"></i>Register</div>
+                <hr>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
@@ -102,22 +108,22 @@ Register
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right" style="color: white; " >{{ __('Phone') }}</label>
+                            <label for="phone" class="col-md-4 col-form-label text-md-right" style="color: white; ">{{ __('Phone') }}</label>
 
                             <div class="col-md-6">
                                 <input id="phone" type="text" class="form-control @error('name') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
 
                                 @error('phone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -129,9 +135,9 @@ Register
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -143,9 +149,9 @@ Register
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -158,49 +164,58 @@ Register
                             </div>
                         </div>
                         <div class="form-group row">
-                                <label for="usertype" class="col-md-4 col-form-label text-md-right" style="color: white;">{{ __('User Type') }}</label>
+                            <label for="usertype" class="col-md-4 col-form-label text-md-right" style="color: white;">{{ __('User Type') }}</label>
+                            <div class="col-md-6">
+                                <select id="usertype" class="form-control" name="usertype">
+                                    <option value="user">User</option>
+                                    <option value="artist">Artist</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="artist-fields" style="display: none;">
+                            <div class="form-group row">
+                                <label for="description" class="col-md-4 col-form-label text-md-right" style="color: white;">{{ __('Description') }}</label>
                                 <div class="col-md-6">
-                                    <select id="usertype" class="form-control" name="usertype">
-                                        <option value="user">User</option>
-                                        <option value="artist">Artist</option>
-                                    </select>
+                                    <textarea id="description" class="form-control" name="description"></textarea>
                                 </div>
                             </div>
-
-                            <div id="artist-fields" style="display: none;">
-                                <div class="form-group row">
-                                    <label for="description" class="col-md-4 col-form-label text-md-right" style="color: white;">{{ __('Description') }}</label>
-                                    <div class="col-md-6">
-                                        <textarea id="description" class="form-control" name="description"></textarea>
+                            <div class="form-group row">
+                                <label for="speciality" class="col-md-4 col-form-label text-md-right" style="color: white;">{{ __('Speciality') }}</label>
+                                <div class="col-md-6">
+                                    <input id="speciality" type="text" class="form-control" name="speciality">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="location" class="col-md-4 col-form-label text-md-right" style="color: white;">{{ __('Location') }}</label>
+                                <div class="col-md-6">
+                                    <input id="location" type="text" class="form-control" name="location">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="location" class="col-md-4 col-form-label text-md-right" style="color: white;">{{ __('Price') }}</label>
+                                <div class="col-md-6">
+                                    <input id="price" type="number" class="form-control" name="price">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="image" class="col-md-4 col-form-label text-md-right" style="color: white;">{{ __('Profile Image') }}</label>
+                                <div class="col-md-6">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="image" name="image">
+                                        <label class="custom-file-label" id="imageLabel" for="image">Choose file</label>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="speciality" class="col-md-4 col-form-label text-md-right" style="color: white;">{{ __('Speciality') }}</label>
-                                    <div class="col-md-6">
-                                        <input id="speciality" type="text" class="form-control" name="speciality">
+                            </div>
+                            <div class="form-group row">
+                                <label for="work_samples" class="col-md-4 col-form-label text-md-right" style="color: white;">{{ __('Work Samples') }}</label>
+                                <div class="col-md-6">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="work_samples" name="work_samples[]" multiple>
+                                        <label class="custom-file-label" id="workSamplesLabel" for="work_samples">Choose files</label>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="location" class="col-md-4 col-form-label text-md-right" style="color: white;">{{ __('Location') }}</label>
-                                    <div class="col-md-6">
-                                        <input id="location" type="text" class="form-control" name="location">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="location" class="col-md-4 col-form-label text-md-right" style="color: white;">{{ __('Price') }}</label>
-                                    <div class="col-md-6">
-                                        <input id="price" type="number" class="form-control" name="price">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="image" class="col-md-4 col-form-label text-md-right" style="color: white;">{{ __('Image') }}</label>
-                                    <div class="col-md-6">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="image" name="image">
-                                            <label class="custom-file-label" id="imageLabel" for="image">Choose file</label>
-                                        </div>
-                                    </div>
-                                </div>
+                            </div>
 
                         </div>
 
@@ -243,6 +258,14 @@ Register
         $('#image').change(function() {
             var fileName = $(this).val().split('\\').pop();
             $('#imageLabel').text(fileName);
+        });
+
+        $('#work_samples').change(function() {
+            var filenames = [];
+            for (var i = 0; i < $(this).get(0).files.length; ++i) {
+                filenames.push($(this).get(0).files[i].name);
+            }
+            $('#workSamplesLabel').text(filenames.join(', '));
         });
     });
 </script>

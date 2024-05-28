@@ -3,7 +3,25 @@
 @section('title')
     My Profile
 @endsection
+<style>
+       .work-samples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
 
+        .work-sample-item {
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .work-sample-item img {
+            display: block;
+            max-width: 150px;
+            max-height: 150px;
+        }
+</style>
 @section('content')
     <div class="content">
         <div class="row">
@@ -66,6 +84,21 @@
                             <tr>
                                 <th>Price:</th>
                                 <td>{{ $artist->price }}</td>
+                            </tr>
+                            <tr>
+                                <th>Sample:</th>
+                                <td>@if(!empty($artist->work_samples))
+                            <div class="work-samples">
+                                @foreach(json_decode($artist->work_samples) as $sample)
+                                    <div class="work-sample-item">
+                                        <a href="{{ asset('work_samples/'.$sample) }}" data-toggle="lightbox">
+                                            <img src="{{ asset('work_samples/'.$sample) }}" alt="Work Sample" class="img-thumbnail">
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                            @endif
+                        </td>
                             </tr>
                         </table>
 

@@ -20,6 +20,7 @@ Route::get('/all', 'makeupcontroller@all');
 Route::get('/makeup-details/{id}', 'makeupcontroller@makeup_details')->name('details');
 Route::get('cart','makeupcontroller@carthandler');
 Route::post('removecart/{id}','makeupcontroller@removecart');
+Route::get('category','makeupcontroller@list')->name('cosmetic_menu');
 Route::post('updatecart/{id}','makeupcontroller@updatecart');
 Route::get('carts/{id}','makeupcontroller@cart');
 Route::get('/about-us', 'Admin\DashboardController@aboutUs');

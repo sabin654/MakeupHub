@@ -18,7 +18,15 @@ class artistController extends Controller
     public function artist_details($id){
 
 
-        $data['details'] = Artist::find($id);
+        $artist = Artist::findOrFail($id);
+
+        if (!empty($artist->work_samples)) {
+            $artist->work_samples = json_decode($artist->work_samples, true);
+        } else {
+            $artist->work_samples = [];
+        }
+
+        $data['details'] = $artist;
         return view('artist-details',['data'=>$data]);
     }
 
@@ -174,12 +182,13 @@ class artistController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'phone' => 'required|string|max:10',
+            'phone' => 'required|string|min:10',
             'speciality' => 'required|string|max:255',
             'description' => 'required|string',
             'location' => 'required|string|max:255',
             'price' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg',
+            'image' => 'image|mimes:jpeg,png,jpg',
+            'work_samples.*' => 'required|image|mimes:jpeg,png,jpg',
         ]);
 
         $user->name = $request->input('name');
@@ -197,6 +206,15 @@ class artistController extends Controller
             $imageName = time().'.'.$image->getClientOriginalExtension();
             $image->move(public_path('artistimages'), $imageName);
             $artist->image = $imageName;
+        }
+        if ($request->hasFile('work_samples')) {
+            $workSamples = [];
+            foreach ($request->file('work_samples') as $file) {
+                $imageName = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('work_samples'), $imageName);
+                $workSamples[] = $imageName;
+            }
+            $artist->work_samples = json_encode($workSamples);
         }
 
         $artist->save();

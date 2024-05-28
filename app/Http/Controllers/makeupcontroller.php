@@ -89,6 +89,12 @@ class makeupcontroller extends Controller
 
     // ...........................end of index blade page function .............................
 
+    public function list()
+    {
+        $makeup = Makeup::all();
+
+        return view('makeuplist',['makeup'=>$makeup]);
+    }
     public function makeup_details($id){
 
         if(Auth::user()){
