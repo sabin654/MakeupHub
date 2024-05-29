@@ -295,10 +295,14 @@ class makeupcontroller extends Controller
         $search_count_makeup = count($search_makeup);
 
         $search_artist = DB::table('artists')
-                    ->join('users', 'artists.u_id', '=', 'users.id')
-                    ->where('users.usertype', 'artist')
-                    ->where('users.name', 'like', '%' . $value . '%')
-                    ->paginate(20);
+        ->join('users', 'artists.u_id', '=', 'users.id')
+        ->where('users.usertype', 'artist')
+        ->where(function($query) use ($value) {
+            $query->where('users.name', 'like', '%' . $value . '%')
+                  ->orWhere('artists.location', 'like', '%' . $value . '%');
+        })
+        ->select('artists.*', 'users.name as artist_name')
+        ->paginate(20);
 
          $search_count_artist = count($search_artist);
 

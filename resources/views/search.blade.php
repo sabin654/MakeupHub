@@ -87,7 +87,7 @@ Get cosmetics products delivered to your home
                     <img class="card-img-top" src="artistimages/{{$artist->image ?? 'default-artist-image.jpg'}}" alt="Card image cap" height="150px">
                 </a>
                 <div class="card-body">
-                    <h5 class="card-title">{{$artist->name}}</h5>
+                    <h5 class="card-title">{{$artist->artist_name}}</h5>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item font-weight-bold text-danger">Rs.{{$artist->price}}</li>
