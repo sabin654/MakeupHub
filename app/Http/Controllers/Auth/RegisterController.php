@@ -72,8 +72,8 @@ class RegisterController extends Controller
         if ($data['usertype'] === 'artist') {
             $rules['description'] = ['required', 'string', 'max:1000'];
             $rules['speciality'] = ['required', 'string', 'max:255'];
-            $rules['image'] = ['required', 'image', 'mimes:jpeg,png,jpg,avif'];
-            $rules['work_samples.*'] = ['required', 'image', 'mimes:jpeg,png,jpg,avif'];
+            $rules['image'] = ['required', 'image', 'mimes:jpeg,png,jpg,avif','max:20480'];
+            $rules['work_samples.*'] = ['required', 'image', 'mimes:jpeg,png,jpg,avif','max:20480'];
             $rules['price'] = ['required', 'numeric'];
         }
         return Validator::make($data, $rules);
